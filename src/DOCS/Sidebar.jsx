@@ -33,8 +33,8 @@ const Sidebar = ({ forms }) => {
       <Box
         className="scroll-container"
         sx={{
-          overflowY: { md: "auto", xs: "visible" }, // Enable scroll only on large screens
-          maxHeight: { md: "calc(100vh - 50px)", xs: "none" }, // Limit height only on large screens
+          overflowY: { md: "auto", xs: "visible" }, 
+          maxHeight: { md: "calc(100vh - 50px)", xs: "none" }, 
         }}
       >
         <List>
