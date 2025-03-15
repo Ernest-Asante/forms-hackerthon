@@ -22,45 +22,45 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
-import { FormContext } from "./formContext"; // Import the context
-import { collection, getDocs, doc, getDoc, query, where } from "firebase/firestore"; // Import Firestore functions
-import { db } from "../firebase-config"; // Import your Firebase configuration
+import { FormContext } from "./formContext"; 
+import { collection, getDocs, doc, getDoc, query, where } from "firebase/firestore"; 
+import { db } from "../firebase-config"; 
 import "../App.css";
 
 const organization = {
   name: "GESA KNUST",
-  logo: "https://picsum.photos/300/200", // Random logo
+  logo: "https://picsum.photos/300/200", 
 };
 
 const Dashboard = () => {
-  const [forms, setForms] = useState([]); // State to store forms from Firestore
-  const [drawerOpen, setDrawerOpen] = useState(false); // State to control drawer visibility
+  const [forms, setForms] = useState([]); 
+  const [drawerOpen, setDrawerOpen] = useState(false); 
   const [modalOpen, setModalOpen] = useState(false);
   const [formTitle, setFormTitle] = useState("");
   const [formDescription, setFormDescription] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [file, setFile] = useState(null);
-  const [selectedForm, setSelectedForm] = useState(null); // State to store the selected form
-  const [userResponses, setUserResponses] = useState([]); // State to store user responses for the selected form
-  const [selectedResponse, setSelectedResponse] = useState(null); // State to store the selected response details
-  const [loading, setLoading] = useState(false); // State to handle loading
+  const [selectedForm, setSelectedForm] = useState(null); 
+  const [userResponses, setUserResponses] = useState([]); 
+  const [selectedResponse, setSelectedResponse] = useState(null); 
+  const [loading, setLoading] = useState(false); 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const navigate = useNavigate();
-  const { setFormData } = useContext(FormContext); // Access the context
+  const { setFormData } = useContext(FormContext); 
 
-  // Fetch forms from Firestore on component mount
+  
   useEffect(() => {
     const fetchForms = async () => {
       setLoading(true);
       try {
-        const formsCollection = collection(db, "forms"); // Reference to the "forms" collection
-        const formsSnapshot = await getDocs(formsCollection); // Get all documents in the collection
+        const formsCollection = collection(db, "forms"); 
+        const formsSnapshot = await getDocs(formsCollection); 
         const formsData = formsSnapshot.docs.map((doc) => ({
-          id: doc.id, // Use the Firestore document ID
-          title: doc.data().title, // Use the form title from Firestore
+          id: doc.id, 
+          title: doc.data().title, 
         }));
-        setForms(formsData); // Update the state with the fetched forms
+        setForms(formsData); 
       } catch (error) {
         console.error("Error fetching forms:", error);
       } finally {
@@ -69,29 +69,29 @@ const Dashboard = () => {
     };
 
     fetchForms();
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, []); 
 
-  // Fetch user responses for the selected form
+  
   const handleFormClick = async (formId) => {
     setLoading(true);
     try {
-      // Fetch the form document
+      
       const formDoc = await getDoc(doc(db, "forms", formId));
       if (formDoc.exists()) {
-        setSelectedForm(formDoc.data()); // Set the selected form data
+        setSelectedForm(formDoc.data()); 
       } else {
         console.error("Form not found");
       }
 
-      // Fetch user responses for the selected form
+      
       const userFormsCollection = collection(db, "user-forms");
       const userFormsQuery = query(userFormsCollection, where("formId", "==", formId));
       const userFormsSnapshot = await getDocs(userFormsQuery);
       const userResponsesData = userFormsSnapshot.docs.map((doc) => ({
-        id: doc.id, // Use the Firestore document ID
-        ...doc.data(), // Include all response data
+        id: doc.id, 
+        ...doc.data(), 
       }));
-      setUserResponses(userResponsesData); // Update the state with the fetched responses
+      setUserResponses(userResponsesData); 
     } catch (error) {
       console.error("Error fetching form data or user responses:", error);
     } finally {
@@ -99,9 +99,9 @@ const Dashboard = () => {
     }
   };
 
-  // Handle clicking on a user response to show its details
+  
   const handleResponseClick = (response) => {
-    setSelectedResponse(response); // Set the selected response
+    setSelectedResponse(response); 
   };
 
   const handleCreateForm = () => {
@@ -114,7 +114,7 @@ const Dashboard = () => {
 
   const handleContinue = () => {
     setModalOpen(false);
-    // Update the context with form data
+    
     setFormData({
       title: formTitle,
       description: formDescription,
