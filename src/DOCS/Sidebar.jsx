@@ -7,12 +7,12 @@ const Sidebar = ({ forms }) => {
     <Paper
       elevation={0}
       sx={{
-        width: { xs: "80vw", md: 300 }, // Wider on small screens for better visibility
-        height: { xs: "100vh", md: "100vh" }, // Full height in both cases
-        position: { md: "fixed" }, // Fixed only on large screens
+        width: { xs: "80vw", md: 300 }, 
+        height: { xs: "100vh", md: "100vh" }, 
+        position: { md: "fixed" }, 
         left: 0,
         top: 0,
-        overflowY: { md: "auto", xs: "visible" }, // Enable scrolling only on large screens
+        overflowY: { md: "auto", xs: "visible" }, 
         display: "flex",
         flexDirection: "column",
         shadow:"none"
