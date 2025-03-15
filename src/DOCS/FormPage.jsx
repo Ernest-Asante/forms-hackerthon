@@ -126,7 +126,7 @@ const FormPage = () => {
       <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
         <CircularProgress />
       </Box>
-    ); // Display a loading spinner
+    ); 
   }
 
   return (
@@ -138,7 +138,7 @@ const FormPage = () => {
           borderRadius: 2,
           backgroundColor: "white",
           maxWidth: 800,
-          mx: "auto", // Center the form
+          mx: "auto", 
         }}
       >
         {/* Form Title and Description */}
