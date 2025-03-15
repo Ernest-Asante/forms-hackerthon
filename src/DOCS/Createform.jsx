@@ -31,12 +31,12 @@ import { storage } from "../firebase-config";
 import { db } from "../firebase-config";
 import { collection, addDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { FormContext } from "./formContext"; // Import the context
+import { FormContext } from "./formContext"; 
 import "../App.css";
 
 const organization = {
   name: "GESA KNUST",
-  logo: "https://picsum.photos/300/200", // Random logo
+  logo: "https://picsum.photos/300/200", 
 };
 
 const elements = [
@@ -55,12 +55,12 @@ const CreateForm = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [entityInputs, setEntityInputs] = useState({});
   const [imagePreviews, setImagePreviews] = useState({}); // Store image previews
-  const [fileNames, setFileNames] = useState({}); // Store file names
-  const [formTitle, setFormTitle] = useState(""); // Form title
-  const [formDescription, setFormDescription] = useState(""); // Form description
-  const { formData } = useContext(FormContext); // Access the context
+  const [fileNames, setFileNames] = useState({}); 
+  const [formTitle, setFormTitle] = useState(""); 
+  const [formDescription, setFormDescription] = useState(""); 
+  const { formData } = useContext(FormContext); 
 
-   const navigate = useNavigate(); // Hook for navigation
+   const navigate = useNavigate(); 
   
 
   const handleSelectElement = (element) => {
@@ -113,7 +113,7 @@ const CreateForm = () => {
 
   const handleSubmitForm = async () => {
     try {
-      // Step 1: Upload the logo to Firebase Storage (if provided)
+      
       let logoUrl = "";
       if (formData.logo) {
         const logoRef = ref(storage, `logos/${Date.now()}_${formData.logo.name}`);
@@ -121,22 +121,22 @@ const CreateForm = () => {
         logoUrl = await getDownloadURL(logoRef);
       }
 
-      // Step 2: Prepare the form data
+      
       const formDataForFirestore = {
         title: formData.title,
         description: formData.description,
-        logo: logoUrl, // Use the uploaded logo URL
-        elements: selectedElements, // Send all selected elements as-is
+        logo: logoUrl, 
+        elements: selectedElements, 
       };
 
-      // Step 3: Submit the form data to Firestore
+      
       const docRef = await addDoc(collection(db, "forms"), formDataForFirestore);
       console.log("Form submitted successfully with ID:", docRef.id);
 
       await updateDoc(docRef, { id: docRef.id });
 
       alert("Form submitted successfully!");
-       navigate("/dashboard"); // Navigate to Dashboard after successful login
+       navigate("/dashboard"); 
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("Error submitting form. Please try again.");
@@ -156,17 +156,17 @@ const CreateForm = () => {
 
       <Divider />
 
-      {/* Main Content */}
+    
       <Box
         sx={{
           display: "flex",
           flexDirection: { xs: "column", sm: "row" }, // Stack vertically on mobile, row on larger screens
           flexGrow: 1,
           p: 2,
-          gap: 2, // Add gap between elements
+          gap: 2, 
         }}
       >
-        {/* Element Bar */}
+        
         <Paper
           sx={{
             width: { xs: "100%", sm: "30%" }, // Full width on mobile, 30% on larger screens
