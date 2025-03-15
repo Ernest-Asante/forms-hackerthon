@@ -160,7 +160,7 @@ const CreateForm = () => {
       <Box
         sx={{
           display: "flex",
-          flexDirection: { xs: "column", sm: "row" }, // Stack vertically on mobile, row on larger screens
+          flexDirection: { xs: "column", sm: "row" }, 
           flexGrow: 1,
           p: 2,
           gap: 2, 
@@ -169,7 +169,7 @@ const CreateForm = () => {
         
         <Paper
           sx={{
-            width: { xs: "100%", sm: "30%" }, // Full width on mobile, 30% on larger screens
+            width: { xs: "100%", sm: "30%" }, 
             p: 2,
             borderRadius: 2,
             backgroundColor: "white",
@@ -181,9 +181,9 @@ const CreateForm = () => {
           </Typography>
           <List
             sx={{
-              display: { xs: "flex", sm: "block" }, // Flex layout on mobile, block on larger screens
-              flexDirection: "row", // Horizontal layout on mobile
-              gap: { xs: 2, sm: 0 }, // Add gap between items on mobile
+              display: { xs: "flex", sm: "block" },
+              flexDirection: "row", 
+              gap: { xs: 2, sm: 0 }, 
             }}
           >
             {elements.map((element) => (
@@ -192,8 +192,8 @@ const CreateForm = () => {
                 key={element.id}
                 onClick={() => handleSelectElement(element)}
                 sx={{
-                  width: { xs: "auto", sm: "100%" }, // Auto width on mobile, full width on larger screens
-                  flexShrink: 0, // Prevent shrinking on mobile
+                  width: { xs: "auto", sm: "100%" }, 
+                  flexShrink: 0, 
                   borderRadius: 1,
                   "&:hover": { backgroundColor: "#f0f0f0" },
                 }}
@@ -282,8 +282,8 @@ const CreateForm = () => {
             bgcolor: "background.paper",
             p: 4,
             borderRadius: 2,
-            maxHeight: "80vh", // Set max height for the modal
-            overflowY: "auto", // Make it scrollable
+            maxHeight: "80vh", 
+            overflowY: "auto", 
             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
           }}
         >
