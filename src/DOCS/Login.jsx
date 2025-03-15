@@ -9,18 +9,18 @@ import {
   Paper,
   Alert,
 } from "@mui/material";
-import { auth } from "../firebase-config"; // Import auth
-import { signInWithEmailAndPassword } from "firebase/auth"; // Import signInWithEmailAndPassword
+import { auth } from "../firebase-config"; 
+import { signInWithEmailAndPassword } from "firebase/auth"; 
 
 const organization = {
   name: "GESA KNUST",
-  logo: "https://picsum.photos/300/200", // Random logo
+  logo: "https://picsum.photos/300/200", 
 };
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [error, setError] = useState(""); // State to handle errors
-  const navigate = useNavigate(); // Hook for navigation
+  const [error, setError] = useState(""); 
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,13 +28,13 @@ const LoginPage = () => {
 
   // Handle email/password login
   const handleLogin = async () => {
-    setError(""); // Clear previous errors
+    setError(""); 
     try {
-      // Sign in with email and password
+      
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      navigate("/dashboard"); // Navigate to Dashboard after successful login
+      navigate("/dashboard"); 
     } catch (err) {
-      setError(err.message); // Display error message
+      setError(err.message); 
     }
   };
 
