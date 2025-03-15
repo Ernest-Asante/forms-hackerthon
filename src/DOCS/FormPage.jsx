@@ -22,22 +22,22 @@ import { db, storage } from "../firebase-config";
 import "../App.css";
 
 const FormPage = () => {
-  const { id } = useParams(); // Get the form ID from the URL
-  const [formData, setFormData] = useState(null); // State to store the form data
-  const [userResponses, setUserResponses] = useState({}); // State to store user responses
-  const [userInfo, setUserInfo] = useState({ name: "", email: "" }); // State to store user information
-  const [imagePreviews, setImagePreviews] = useState({}); // State to store image previews
-  const [fileNames, setFileNames] = useState({}); // State to store file names
-  const [loading, setLoading] = useState(false); // State to handle loading
+  const { id } = useParams(); 
+  const [formData, setFormData] = useState(null); 
+  const [userResponses, setUserResponses] = useState({}); 
+  const [userInfo, setUserInfo] = useState({ name: "", email: "" }); 
+  const [imagePreviews, setImagePreviews] = useState({}); 
+  const [fileNames, setFileNames] = useState({}); 
+  const [loading, setLoading] = useState(false); 
 
-  // Fetch the form data from Firestore
+  
   useEffect(() => {
     const fetchFormData = async () => {
       setLoading(true);
       try {
-        const formDoc = await getDoc(doc(db, "forms", id)); // Fetch the form document
+        const formDoc = await getDoc(doc(db, "forms", id));
         if (formDoc.exists()) {
-          setFormData(formDoc.data()); // Set the form data
+          setFormData(formDoc.data()); 
         } else {
           console.error("Form not found");
         }
@@ -49,9 +49,9 @@ const FormPage = () => {
     };
 
     fetchFormData();
-  }, [id]); // Re-fetch when the ID changes
+  }, [id]); 
 
-  // Handle input changes for form elements
+  
   const handleInputChange = (elementId, value) => {
     setUserResponses((prev) => ({
       ...prev,
@@ -59,12 +59,12 @@ const FormPage = () => {
     }));
   };
 
-  // Handle file uploads for image and file elements
+  
   const handleFileUpload = async (elementId, event) => {
     const file = event.target.files[0];
     if (file) {
       if (file.type.startsWith("image/")) {
-        // For image elements, create a preview
+        
         const imageUrl = URL.createObjectURL(file);
         setImagePreviews((prev) => ({
           ...prev,
@@ -72,18 +72,18 @@ const FormPage = () => {
         }));
       }
 
-      // Upload the file to Firebase Storage
+      
       const fileRef = ref(storage, `user-files/${id}/${elementId}_${file.name}`);
       await uploadBytes(fileRef, file);
       const fileUrl = await getDownloadURL(fileRef);
 
-      // Store the file URL in userResponses
+      
       setUserResponses((prev) => ({
         ...prev,
         [elementId]: fileUrl,
       }));
 
-      // Store the file name for display
+      
       setFileNames((prev) => ({
         ...prev,
         [elementId]: file.name,
@@ -91,10 +91,10 @@ const FormPage = () => {
     }
   };
 
-  // Handle form submission
+  
   const handleSubmit = async () => {
     try {
-      // Map userResponses to use custom labels as keys
+      
       const labeledResponses = {};
       formData.elements.forEach((el) => {
         const responseValue = userResponses[el.id];
@@ -103,15 +103,15 @@ const FormPage = () => {
         }
       });
 
-      // Prepare the user's response data
+      
       const userResponseData = {
-        formId: id, // Reference the original form ID
-        userInfo, // Include user information
-        responses: labeledResponses, // Include user responses with custom labels
-        timestamp: new Date(), // Add a timestamp
+        formId: id, 
+        userInfo, 
+        responses: labeledResponses, 
+        timestamp: new Date(), 
       };
 
-      // Add the user's response to the "user-forms" collection
+      
       await addDoc(collection(db, "user-forms"), userResponseData);
 
       alert("Form submitted successfully!");
