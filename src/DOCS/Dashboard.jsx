@@ -263,7 +263,7 @@ const Dashboard = () => {
               </List>
             </Box>
           ) : (
-            // Display the "Create Form" button if no form is selected
+            
             <>
               <Typography variant="h4" fontWeight="bold" mb={3} color="#1DA1F2">
                 Create a New Form
@@ -287,7 +287,7 @@ const Dashboard = () => {
         </Box>
       </Box>
 
-      {/* Modal to display response details */}
+      
       <Modal open={!!selectedResponse} onClose={() => setSelectedResponse(null)}>
         <Box
           sx={{
