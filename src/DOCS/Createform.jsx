@@ -54,7 +54,7 @@ const CreateForm = () => {
   const [selectedElements, setSelectedElements] = useState([]);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [entityInputs, setEntityInputs] = useState({});
-  const [imagePreviews, setImagePreviews] = useState({}); // Store image previews
+  const [imagePreviews, setImagePreviews] = useState({}); 
   const [fileNames, setFileNames] = useState({}); 
   const [formTitle, setFormTitle] = useState(""); 
   const [formDescription, setFormDescription] = useState(""); 
